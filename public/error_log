@@ -1,0 +1,203 @@
+[09-Sep-2024 00:02:09 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:09 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:09 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:02:32 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:03:11 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php): Failed to open stream: No such file or directory in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Warning:  include(): Failed opening '/home/qywzedn0u7l9/public_html/myLab/vendor/composer/../../app/Http/Kernel.php' for inclusion (include_path='.:/opt/alt/php81/usr/share/pear:/opt/alt/php81/usr/share/php:/usr/share/pear:/usr/share/php') in /home/qywzedn0u7l9/public_html/myLab/vendor/composer/ClassLoader.php on line 576
+[09-Sep-2024 00:03:11 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "App\Http\Kernel" does not exist in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:912
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(912): ReflectionClass->__construct()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#8 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#9 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#10 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [App\Http\Kernel] does not exist. in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php:914
+Stack trace:
+#0 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#1 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#2 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(297): Illuminate\Foundation\Application->resolve()
+#3 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(908): Illuminate\Container\Container->Illuminate\Container\{closure}()
+#4 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(795): Illuminate\Container\Container->build()
+#5 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(961): Illuminate\Container\Container->resolve()
+#6 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php(731): Illuminate\Foundation\Application->resolve()
+#7 /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(946): Illuminate\Container\Container->make()
+#8 /home/qywzedn0u7l9/public_html/myLab/public/index.php(49): Illuminate\Foundation\Application->make()
+#9 {main}
+  thrown in /home/qywzedn0u7l9/public_html/myLab/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 914

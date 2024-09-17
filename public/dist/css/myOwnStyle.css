@@ -1,0 +1,121 @@
+.colored-toast.swal2-icon-success {
+  background-color: #5f6df1 !important;
+}
+
+.colored-toast.swal2-icon-error {
+  background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+  background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+  background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+  background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+  color: white;
+}
+
+.colored-toast .swal2-close {
+  color: white;
+}
+
+.colored-toast .swal2-html-container {
+  color: rgb(38, 28, 225);
+}
+
+
+/* [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link {
+  color: black;
+}
+
+[class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:focus, [class*=sidebar-dark-] .nav-treeview>.nav-item>.nav-link:hover {
+  background-color: rgba(255, 255, 255, .1);
+  color: #4a17cd;
+} */
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #e4efb6;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.a-doctorcodsdownload {
+  display: block;
+  font-size: 20px;
+  background-color: #00000073;
+  color: aliceblue;
+  width: 6%;
+  text-align: center;
+  position: absolute;
+  top: 0;
+}
+
+.a-doctorcodsdownload:hover{
+  background-color: blue;
+  color: aliceblue;
+}
+.card {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, .125), 0 1px 3px rgba(0,0, 0, .2);
+}
+
+.lab-addr{
+  padding: 5px;
+    border-radius: 6px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .1);
+}
+.box-head-lab{
+  background-color: #e9e9e959;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .2);
+    padding: 17px;
+}
+
+.p-aside-text{
+  color: black;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.p-aside-text:hover{
+  background-color: beige;
+}
+
+
+
+/* points */
+
+    .transaction-row {
+        display: flex;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .transaction-cell {
+        flex: 1;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .transaction-header {
+        font-weight: bold;
+        background-color: #f1f1f1;
+    }
+
+    #transactionsContainer {
+        max-height: 300px; /* Control height if there are many transactions */
+        overflow-y: auto;
+    }
+
+    .p-aside-text {
+      color: black;
+      font-size: 20px;
+      padding: 5px;
+  }
+ 
