@@ -36,16 +36,22 @@
                         <p class="p-aside-text">Diagnoses</p>
                     </a>
                 </li>
-                <li class="nav-item" style="border-bottom: 1px solid #4f59621f;">
+                {{-- <li class="nav-item" style="border-bottom: 1px solid #4f59621f;">
                     <a href="{{ route('dashboard.tumors.index') }}" class="nav-link {{ request()->routeIs('dashboard.tumors.index') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard.tumors.index') ? 'background-color: #dcdde1; color: #000;' : 'color: black;' }}">
                         <i class="bi bi-text-paragraph"></i>
                         <p class="p-aside-text">Tumors</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('dashboard.tests.index') }}" class="nav-link {{ request()->routeIs('dashboard.tests.index') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard.tests.index') ? 'background-color: #dcdde1; color: #000;' : 'color: black;' }}">
                         <i class="bi bi-bookmarks-fill"></i>
                         <p class="p-aside-text">Tests</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard.index-govs-cities') }}" class="nav-link {{ request()->routeIs('dashboard.index-govs-cities') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard.index-govs-cities') ? 'background-color: #dcdde1; color: #000;' : 'color: black;' }}">
+                        <i class="bi bi-bookmarks-fill"></i>
+                        <p class="p-aside-text">Locations</p>
                     </a>
                 </li>
                 <li class="nav-item" style="border-bottom: 1px solid #4f59621f;">
@@ -81,12 +87,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard.couriers.index') }}" class="nav-link {{ request()->routeIs('dashboard.couriers.index') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard.couriers.index') ? 'background-color: #dcdde1; color: #000;' : '' }}">
-                                <i class="bi bi-person-lines-fill"></i>
-                                <p class="p-aside-text">Couriers</p>
-                            </a>
-                        </li>
+                     
 
 
                     </ul>
@@ -113,6 +114,32 @@
                         </li>
                     </ul>
                 </li>
+
+                       <!-- Couriers Management Dropdown -->
+                       <li class="nav-item has-treeview {{ request()->is('dashboard/couriers*') || request()->is('dashboard/couriers*') ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ request()->is('dashboard/couriers*') || request()->is('dashboard/couriers*') ? 'active' : '' }}" style="{{ request()->is('dashboard/couriers*') || request()->is('dashboard/couriers*') ? 'background-color: #dcdde1; color: #000;' : 'color: black;' }}">
+                            <i class="bi bi-people-fill"></i>
+                            <p class="p-aside-text">Couriers<i class="right fas fa-angle-left"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard.couriers.index') }}" class="nav-link {{ request()->routeIs('dashboard.couriers.index') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard.couriers.index') ? 'background-color: #dcdde1; color: #000;' : '' }}">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                    <p class="p-aside-text">Couriers</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard.couriercollectedtests.index') }}" class="nav-link {{ request()->routeIs('dashboard/couriercollectedtests') ? 'active' : '' }}" style="{{ request()->routeIs('dashboard/couriercollectedtests') ? 'background-color: #dcdde1; color: #000;' : '' }}">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                    <p class="p-aside-text">Couriers Lab Orders</p>
+                                </a>
+                            </li>
+
+                        
+                        </ul>
+                    </li>
+
 
                 <!-- Users Management Dropdown -->
                 <li class="nav-item has-treeview {{ request()->is('dashboard/users*') || request()->is('dashboard/roles*') ? 'menu-open' : '' }}">

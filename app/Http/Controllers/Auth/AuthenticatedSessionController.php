@@ -38,6 +38,15 @@ class AuthenticatedSessionController extends Controller
         //     ]);
         // }
 
+           // Authenticate the user with the 'remember' option
+    if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+        // If authentication fails, redirect back with an error
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
+
+    // Regenerate session for security
         $request->session()->regenerate();
 
         // if (Auth::guard('admin')->check()) {

@@ -46,6 +46,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(LabOrderSeeder::class);
         // $this->call(Lab_branche_test_Seeder::class);
 
-        $this->call(LabTrackSeeder::class);
+        // $this->call(LabTrackSeeder::class);
     }
 }

@@ -43,17 +43,29 @@ class PatientsController extends Controller
 
     public function downloadResult($id)
     {
-
+    // Fetch the patient record
         $patient_report=DB::table('patients')->where('id','=',$id)->first();
-        $file_path=public_path($patient_report->pathology_report_image);
-        if($file_path){
-            return Response::download($file_path);
-        }else{
+        if(!$patient_report || !$patient_report->pathology_report_image){
             return response()->json([
+                'success' => false,
+                            'message' => 'No uploaded reports for patient.'
+                        ], 404);
+        }
+
+        // Construct the full file path
+        $file_path=public_path($patient_report->pathology_report_image);
+         // Check if the file exists before downloading
+         if(file_exists( $file_path)){
+            return Response::download($file_path);
+         }
+        
+        else{
+            return response()->json([
+                'success' => false,
             'message' => 'No uploaded reports for patient'
-            ]);
+            ], 404);
         }
        
     }
-    
+  
 }

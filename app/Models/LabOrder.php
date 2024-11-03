@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Models\Doctor;
+use App\Models\TrackLabTest;
+use App\Models\CourierCollectedTest;
+use App\Models\LabOrderTestQuestion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,6 +17,17 @@ class LabOrder extends Model
     ];
 
     //Rel
+    public function courierCollectedTest()
+{
+    return $this->hasOne(CourierCollectedTest::class);
+}
+
+public function testQuestions()
+{
+    return $this->hasMany(LabOrderTestQuestion::class);
+}
+
+
     public function patient()
     {
         return $this->belongsTo(Patient::class)->withDefault();
@@ -35,7 +49,7 @@ class LabOrder extends Model
     
     public function labTrack()
     {
-        return $this->hasOne(TrackLabTest::class);
+        return $this->hasOne(TrackLabTest::class,'lab_order_id');
     }
 
     public function labBranch()
@@ -59,12 +73,6 @@ class LabOrder extends Model
     {
         return $this->belongsTo(Lab::class,'test_id');
     }
-
-
-
-
-
-
 
     //Accessors===================================
     public function getPatientNameAttribute()

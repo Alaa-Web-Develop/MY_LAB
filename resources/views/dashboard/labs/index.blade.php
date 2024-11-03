@@ -1,23 +1,22 @@
 @extends('layouts.mainLayout')
 @section('title', 'Labs')
-
+@push('styles')
+<style>
+    body{
+        padding: 10px;
+    }
+</style>
+    
+@endpush
 @section('content')
 
     <!-- Main content -->
 
-    <div class="col" style="width: 90%;">
+    <div class="col">
         <div class="card">
             <div class="card-header">
                 <a href="{{ route('dashboard.labs.create') }}" class="btn btn-primary"><i class="bi bi-plus-square-dotted"></i>
                     Create New Lab</a>
-
-                {{-- <a href="{{ route('dashboard.lab_branches.index') }}" class="btn btn-success"><i
-                        class="bi bi-plus-square-dotted"></i>
-                    Display All Branches</a> --}}
-
-                {{-- <a href="{{ route('dashboard.lab_barnch_test.index') }}" class="btn btn-success"><i
-                        class="bi bi-plus-square-dotted"></i> Tests Info</a> --}}
-
 
             </div>
             <!-- /.card-header -->
@@ -25,13 +24,6 @@
                 <table id="example1" class="table table-bordered table-striped text-center">
                     <thead>
                         <tr>
-                            {{-- Lab Name
-Hotline
-Branches ( View – Add New )
-Tests ( View – Add New )
-Status
-Actions ( View - Edit ) --}}
-
 
                             <th>Lab Name</th>
                             <th>Hotline</th>
@@ -39,21 +31,6 @@ Actions ( View - Edit ) --}}
                             <th>Tests</th>
                             <th>Status</th>
                             <th>Actions</th>
-
-
-                            {{-- <th>logo</th>
-                            <th>Governorate</th>
-                            <th>City</th>
-                            <th>Address</th>
-                          <th>Location</th>
-                            <th>Phone</th>                         
-                            <th>Email</th>
-                            <th>Add Branch</th>
-                            <th>Available Tests</th>
-                            <th>description</th>
-                            <th>Created_at</th>
-                            <th>Edit</th>
-                            <th>Delete</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -70,22 +47,21 @@ Actions ( View - Edit ) --}}
 
                                         <div>
                                             <a href="#" class="btn btn-outline-primary btn-sm" data-toggle="modal"
-                                            data-target="#ModalShowBranches{{ $lab->id }}">
-                                            {{-- <i class="bi bi-pencil-square "></i> --}}
-                                            Show Branches
-                                        </a>
+                                                data-target="#ModalShowBranches{{ $lab->id }}">
+                                                Show Branches
+                                            </a>
                                         </div>
 
                                         <div>
-                                            <a href="#" class="btn btn-outline-success btn-sm" style="color: black;" data-toggle="modal"
-                                            data-target="#ModalAddBranches{{ $lab->id }}">
-                                            <i class="bi bi-plus-square-dotted"></i>
-    
-                                            Add Branche </a>
+                                            <a href="#" class="btn btn-outline-success btn-sm" style="color: black;"
+                                                data-toggle="modal" data-target="#ModalAddBranches{{ $lab->id }}">
+                                                <i class="bi bi-plus-square-dotted"></i>
+
+                                                Add Branche </a>
                                         </div>
 
                                     </div>
-                                    
+
                                 </td>
 
                                 <td>
@@ -98,13 +74,13 @@ Actions ( View - Edit ) --}}
                                             </a>
                                         </div>
                                         <div>
-                                            <a href="#" class="btn btn-outline-success btn-sm" style="color: black;" data-toggle="modal"
-                                            data-target="#ModalAssignTestInfo{{ $lab->id }}"><i
-                                                class="bi bi-plus-square-dotted"></i>
-                                            Add Test</a>
+                                            <a href="#" class="btn btn-outline-success btn-sm" style="color: black;"
+                                                data-toggle="modal" data-target="#ModalAssignTestInfo{{ $lab->id }}"><i
+                                                    class="bi bi-plus-square-dotted"></i>
+                                                Add Test</a>
                                         </div>
                                     </div>
-                                   
+
                                 </td>
 
                                 <td
@@ -116,7 +92,8 @@ Actions ( View - Edit ) --}}
                                     <div class="d-flex" style="justify-content: space-evenly;">
                                         <div>
                                             <a href="{{ route('dashboard.labs.edit', $lab->id) }}"
-                                                class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square "></i> Edit</a>
+                                                class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square "></i>
+                                                Edit</a>
                                         </div>
                                         <div>
                                             <form action="{{ route('dashboard.labs.destroy', $lab->id) }}" method="post">
@@ -130,45 +107,19 @@ Actions ( View - Edit ) --}}
 
                                         <div>
                                             <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
-                                            data-target="#MoreLab{{$lab->id }}">More</a>
+                                                data-target="#MoreLab{{ $lab->id }}">More</a>
                                         </div>
                                     </div>
                                 </td>
 
-                                {{-- <td><img src="{{ asset($lab->logo) }}" alt="lab_img" class="w-50 h-50"></td> --}}
-                                {{-- <td>{{ $lab->govern_name }}</td>
-                                <td>{{ $lab->city_name }}</td>
-                                <td>{{ $lab->address }}</td> --}}
-
-                                {{-- <td>{{ $lab->location }}</td> --}}
-                                {{-- <td>{{ $lab->phone }}</td>
-
-                                <td>{{ $lab->email }}</td> --}}
-
-
-                                
-                                  
-                                    {{-- 
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                        data-target="#labTestsModal{{ $lab->id }}">
-                                        View Tests
-                                    </button> --}}
-
-
-                                {{-- <td>{{ $lab->description }}</td> --}}
-
-                                {{-- <td>{{ date('d/m/Y H:i A', strtotime($lab->created_at)) }}</td> --}}
-
-                                {{-- More Modal===================================================================================== --}}
-                                <div class="modal fade" id="MoreLab{{$lab->id }}" tabindex="-1"
-                                    role="dialog" aria-labelledby="MoreLab{{$lab->id }}"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog" role="document"
-                                        style="max-width: 60%;overflow-y:hidden;">
+                                {{-- More Modal========== --}}
+                                <div class="modal fade" id="MoreLab{{ $lab->id }}" tabindex="-1" role="dialog"
+                                    aria-labelledby="MoreLab{{ $lab->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document" style="max-width: 60%;overflow-y:hidden;">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="MoreLab{{$lab->id }}">
-                                                    Lab:<span class="text-danger">{{ $lab->name }}</span>  Details</h5>
+                                                <h5 class="modal-title" id="MoreLab{{ $lab->id }}">
+                                                    Lab:<span class="text-danger">{{ $lab->name }}</span> Details</h5>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
@@ -185,19 +136,19 @@ Actions ( View - Edit ) --}}
                                                     <div class="form-group col-md-2">
                                                         <label>Status</label>
                                                         <input disabled type="text" class="form-control"
-                                                            value="{{ $lab->Approval_Status }}"> 
+                                                            value="{{ $lab->Approval_Status }}">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label>Hotline</label>
                                                         <input disabled type="text" class="form-control"
-                                                        value="{{ $lab->hotline }}"> 
+                                                            value="{{ $lab->hotline }}">
                                                     </div>
                                                     <div class="form-group col-md-3">
                                                         <label>Phone</label>
                                                         <input disabled type="text" class="form-control"
-                                                        value="{{ $lab->phone }}"> 
+                                                            value="{{ $lab->phone }}">
                                                     </div>
-                                               
+
                                                 </div>
 
 
@@ -206,75 +157,64 @@ Actions ( View - Edit ) --}}
                                                 <div class="form-row" style="margin-bottom: 2%">
                                                     <div class="form-group col-md-2">
                                                         <label>Governorate</label>
-                                                        <input type="text" disabled 
-                                                           class="form-control"
+                                                        <input type="text" disabled class="form-control"
                                                             value="{{ $lab->govern_name }}">
                                                     </div>
 
                                                     <div class="form-group col-md-2">
                                                         <label>City</label>
-                                                        <input type="text" disabled 
-                                                           class="form-control"
+                                                        <input type="text" disabled class="form-control"
                                                             value="{{ $lab->city_name }}">
                                                     </div>
 
                                                     <div class="form-group col-md-5">
                                                         <label>Address</label>
-                                                        <input type="text" disabled 
-                                                           class="form-control"
+                                                        <input type="text" disabled class="form-control"
                                                             value="{{ $lab->address }}">
                                                     </div>
 
                                                     <div class="form-group col-md-3">
                                                         <label>Email</label>
-                                                        <input type="text" disabled 
-                                                           class="form-control"
+                                                        <input type="text" disabled class="form-control"
                                                             value="{{ $lab->email }}">
                                                     </div>
 
-                                                   
+
                                                 </div>
 
 
                                                 <div class="form-row" style="margin-bottom: 2%">
                                                     <div class="form-group col-md-12">
                                                         <label>logo</label>
-                                                        <img src="{{ asset($lab->logo) }}" alt="lab_img" style="height: 170px;">
+                                                        <img src="{{ asset($lab->logo) }}" alt="lab_img"
+                                                            style="height: 170px;">
 
                                                     </div>
                                                 </div>
-                                                 
-                                                  
+
+
                                                 <div class="form-row" style="margin-bottom: 2%">
                                                     <div class="form-group col-md-12">
                                                         <label>description</label>
-                                                        <input type="text" disabled 
-                                                        class="form-control"
-                                                         value="{{ $lab->description }}">
+                                                        <input type="text" disabled class="form-control"
+                                                            value="{{ $lab->description }}">
                                                     </div>
+
                                                 </div>
-
-
-                                               
-
-
-
-                                              
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                {{-- More details==================================================================================================== --}}
+                                    {{-- More details=========== --}}
                             </tr>
 
                             @include('dashboard.labs.showBranches', $lab)
                             @include('dashboard.labs.AddBranch', $lab)
                             @include('dashboard.labs.ModalAssignTestInfo', $lab)
-                            {{-- @include('dashboard.labs.labTestsModal', $lab) --}}
-
-
 
                         @empty
+                        <tr>
+                            <td colspan="6">No labs found.</td>
+                        </tr>
                         @endforelse
 
                     </tbody>
@@ -285,29 +225,8 @@ Actions ( View - Edit ) --}}
                             <th></th>
                             <th></th>
                             <th></th>
-
-
                             <th></th>
-                            {{-- <th></th>
-                            <th></th>
-                            <th></th>
-
-
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th> --}}
-
-
-                            {{-- <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th> --}}
-
-
                         </tr>
-
                     </tfoot>
 
                 </table>

@@ -88,7 +88,7 @@ class LabBrancheTestsController extends Controller
             'discount_points' => 'required|integer|min:0',
             'has_courier' => 'nullable|boolean',
         'courier_id' => 'nullable|integer|exists:couriers,id',
-        
+        'test_tot'=>'nullable|integer',
             'sponser_id'=>'nullable|integer|exists:sponsers,id',
         ]);
 

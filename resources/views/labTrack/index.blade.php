@@ -114,65 +114,101 @@
                         <table id="example1" class="table table-bordered table-striped text-center">
                             <thead style="background-color: rgba(255, 187, 0, 0.563)">
                                 <tr>
-                                    <th>Order ID</th>
-                                    <th>Doctor Name</th>
+                                    {{-- <th>Order ID</th> --}}
+        
+                                    <th>Lab Order Number</th> <!-- Example column for Lab Order details -->
+                                    <th>Prescription Date</th>
                                     <th>Patient Name</th>
-                                    <th>Patient Discount Points</th>
+                                    <th>Doctor Name</th>
+        
+                                    <th>Lab Received Date</th>
                                     <th>Test Name</th>
-                                    <th>Test Price</th>
-
-                                    <th>Expected Delivery Date</th>
+        
+                                    <th>Branch Name</th>
+                                    <th>Branch Address</th>
+                                    <th>Branch Number</th>
+        
+                                    <th>Collected Date</th>
+                                    <th>Courier Name</th>
+                                   
+                                    <th>Result Released Date</th>
+                                    <th>Result</th>
+        
                                     <th>Status</th>
-                                    <th>Delivered At</th>
-                                    <th>Result Files</th>
-                                    <th>Notes</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
+        
+                                    {{-- <th>Patient Discount Points</th>
+                                    <th>Test Price</th>
+                                    <th>Notes</th> --}}
+        
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($labOrders as $labOrder)
+                                @foreach ($labOrders as $order)
+                                @php
+                                // Access related models
+                                $labTrack = $order->labTrack;
+                                $collectedTest = $order->courierCollectedTest;
+                                
+                                // Data extraction with default values
+                                $patientName = $order->patient->full_name ?? '';
+                                $doctorName = $order->doctor->name ?? '';
+                                $testName = $order->test->name ?? '';
+                                $labBranchName = $order->labBranch->name ?? '';
+                                $branchAddress = $order->labBranch->address ?? '';
+                                $branchNumber = $order->labBranch->phone ?? '';
+                                $collectedDate = $collectedTest && $collectedTest->collected_at ? $collectedTest->collected_at->format('Y-m-d H:i:s') : '';
+                                $courierName = $collectedTest && $collectedTest->courier ? $collectedTest->courier->name : '';
+                                $resultReleasedDate = $labTrack && $labTrack->result_released_at ? $labTrack->result_released_at->format('Y-m-d H:i:s') : '';
+                                $result = $labTrack ? json_encode($labTrack->result) : 'N/A'; // Assuming results is an array
+                                $status = $labTrack->status ?? ''; // Assuming 'status' field exists in LabOrder
+                            @endphp
                                     <tr>
-                                        <td>{{ $labOrder->id }}</td>
-                                        <td>{{ $labOrder->doctor ? $labOrder->doctor->name : '' }}</td>
-                                        <td>{{ $labOrder->patient ? $labOrder->patient->full_name : '' }}</td>
-                                        <td>{{ $labOrder->labTest ? $labOrder->labTest->discount_points : '' }}</td>
-
-                                        <td>{{ $labOrder->test ? $labOrder->test->name : '' }}</td>
-                                        <td>{{ $labOrder->labTest ? $labOrder->labTest->price : '' }}</td>
-                                        <td>{{ $labOrder->labTrack ? $labOrder->labTrack->expected_delivery_date : '' }}
-                                        </td>
-                                        <td>{{ $labOrder->labTrack ? ucfirst($labOrder->labTrack->status) : '' }}</td>
-                                        <td>{{ $labOrder->labTrack ? $labOrder->labTrack->delivered_at : '' }}</td>
-
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->created_at->format('Y-m-d') }}</td> <!-- Assuming 'created_at' is used for prescription date -->
+                                        <td>{{ $patientName }}</td>
+                                        <td>{{ $doctorName }}</td>
+                                        <td>{{ $labTrack && $labTrack->lab_received_at ? $labTrack->lab_received_at->format('Y-m-d') : '' }}</td>
+                                        <td>{{ $testName }}</td>
+                                        <td>{{ $labBranchName }}</td>
+                                        <td>{{ $branchAddress }}</td>
+                                        <td>{{ $branchNumber }}</td>
+                                        <td>{{ $collectedDate }}</td>
+                                        <td>{{ $courierName }}</td>
+                                        <td>{{ $resultReleasedDate }}</td>
+                                        {{-- <td>{{ $result }}</td> --}}
                                         <td>
-                                            @if ($labOrder->labTrack && $labOrder->labTrack->result)
-                                                <a href="{{ route('labTrack.download-lab-docs', $labOrder->id) }}"
+                                            @if ($order->labTrack && $order->labTrack->result)
+                                                <a href="{{ route('dashboard.download-lab-docs', $order->id) }}"
                                                     class="btn btn-primary"><i class="bi bi-cloud-arrow-down"></i></a>
                                             @else
                                                 No files uploaded
                                             @endif
                                         </td>
-                                        <td>{{ $labOrder->labTrack ? $labOrder->labTrack->notes : '' }}</td>
-
-
+                                        <td>{{ $status }}</td>
+        
                                         <td>
+        
                                             <!-- Link to trigger modal -->
-                                            <a href="{{ route('labTrack.edit-laborder-track', $labOrder->id) }}"
+                                            <a href="#"
                                                 class="btn btn-primary btn-sm" data-toggle="modal"
-                                                data-target="#updateLabOrderModal{{ $labOrder->id }}">Update</a>
+                                                data-target="#updateLabOrderModal{{ $order->id }}">Update</a>
+        
+                                            {{-- <a href="#" class="btn btn-primary btn-sm" data-toggle="modal"
+                                                data-target="#MoreLabOrderModal{{ $order->id }}">More</a> --}}
+        
                                         </td>
-
-                                        <div class="modal fade" id="updateLabOrderModal{{ $labOrder->id }}"
-                                            tabindex="-1" role="dialog"
-                                            aria-labelledby="updateLabOrderModalLabel{{ $labOrder->id }}"
+        
+                                        {{-- Modal Update --}}
+                                        <div class="modal fade" id="updateLabOrderModal{{ $order->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="updateLabOrderModalLabel{{ $order->id }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document"
-                                                style="max-width: 50%; max-height:80%; overflow-y:hidden;">
+                                                style="max-width: 50%; max-height:70%; overflow-y:hidden;">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title"
-                                                            id="updateLabOrderModalLabel{{ $labOrder->id }}">Update Lab
-                                                            Order</h5>
+                                                        <h5 class="modal-title" id="updateLabOrderModalLabel{{ $order->id }}">
+                                                            Update Lab Order</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -180,60 +216,69 @@
                                                     </div>
                                                     <div class="modal-body">
                                                         <form
-                                                            action="{{ route('labTrack.update-laborder-track', $labOrder->id) }}"
+                                                            action="{{ route('labTrack.update-laborder-track', $order->id) }}"
                                                             method="POST" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
-
+        <input type="hidden" name="courier_collected_test_id" value="{{$collectedTest->courier_id ?? ''}}">
                                                             <div class="form-row" style="margin-bottom: 2%">
-                                                                <div class="form-group offset-2 col-md-3">
-                                                                    <label for="expected_delivery_date">Expected
-                                                                        Delivery Date</label>
-                                                                    <input type="datetime-local"
-                                                                        id="expected_delivery_date"
-                                                                        name="expected_delivery_date"
-                                                                        class="form-control"
-                                                                        value="{{ $labOrder->labTrack ? $labOrder->labTrack->expected_delivery_date : '' }}">
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="expected_delivery_date">Expected Delivery Release
+                                                                        Date</label>
+                                                                    <input type="datetime-local" id="expected_delivery_date"
+                                                                        name="expected_delivery_date" class="form-control"
+                                                                        value="{{ $order->labTrack ? $order->labTrack->expected_result_released_date : '' }}">
                                                                 </div>
                                                                 <div class="form-group col-md-3">
                                                                     <label for="status">Status</label>
-                                                                    <select name="status" id="status"
-                                                                        class="form-control">
-                                                                        <option value="pending"
-                                                                            {{ $labOrder->labTrack && $labOrder->labTrack->status === 'pending' ? 'selected' : '' }}>
-                                                                            Pending</option>
-                                                                        <option value="delivered"
-                                                                            {{ $labOrder->labTrack && $labOrder->labTrack->status === 'delivered' ? 'selected' : '' }}>
-                                                                            Delivered</option>
+                                                                    <select name="status" id="status" class="form-control">
+                                                                        <option value="ordered"
+                                                                            {{ $order->labTrack && $order->labTrack->status === 'ordered' ? 'selected' : '' }}>
+                                                                            ordered</option>
+                                                                        <option value="collected_by_courier"
+                                                                            {{ $order->labTrack && $order->labTrack->status === 'collected_by_courier' ? 'selected' : '' }}>
+                                                                            collected_by_courier</option>
+        
+                                                                            <option value="lab_received_at"
+                                                                            {{ $order->labTrack && $order->labTrack->status === 'lab_received_at' ? 'selected' : '' }}>
+                                                                            received By lab</option>
+        
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group col-md-3">
-                                                                    <label for="delivered_at">Delivered At</label>
+                                                                    <label for="delivered_at">lab_received_at</label>
                                                                     <input type="datetime-local" id="delivered_at"
-                                                                        name="delivered_at" class="form-control"
-                                                                        value="{{ $labOrder->labTrack ? $labOrder->labTrack->delivered_at : '' }}">
+                                                                        name="lab_received_at" class="form-control"
+                                                                        value="{{ $order->labTrack ? $order->labTrack->lab_received_at : '' }}">
                                                                 </div>
+        
+                                                                <div class="form-group col-md-3">
+                                                                    <label for="result_released_at">result_released_at</label>
+                                                                    <input type="datetime-local" id="result_released_at"
+                                                                        name="result_released_at" class="form-control"
+                                                                        value="{{ $order->labTrack ? $order->labTrack->result_released_at : '' }}">
+                                                                </div>
+        
                                                             </div>
-
+        
                                                             <div class="form-row" style="margin-bottom: 2%">
                                                                 <div class="form-group offset-2 col-md-6">
                                                                     <label for="results">Upload Results</label>
-                                                                    <input type="file" name="results[]"
-                                                                        id="results" class="form-control" multiple>
+                                                                    <input type="file" name="results[]" id="results"
+                                                                        class="form-control" multiple>
                                                                 </div>
                                                             </div>
-
+        
                                                             <div class="form-row" style="margin-bottom: 2%">
                                                                 <div class="form-group offset-2 col-md-6">
                                                                     <label for="notes">Notes</label>
-                                                                    <textarea id="notes" name="notes" class="form-control">{{ $labOrder->labTrack ? $labOrder->labTrack->notes : '' }}</textarea>
+                                                                    <textarea id="notes" name="notes" class="form-control">{{ $order->labTrack ? $order->labTrack->notes : '' }}</textarea>
                                                                 </div>
                                                             </div>
-
+        
                                                             <div class="form-row">
                                                                 <div class="offset-2 col-3">
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Update Lab
+                                                                    <button type="submit" class="btn btn-primary">Update Lab
                                                                         Order</button>
                                                                 </div>
                                                             </div>
@@ -242,8 +287,113 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        {{-- Modal Update --}}
+        
+                                        {{-- ============================================ --}}
+                                        {{-- Modal More --}}
+                                        {{-- <div class="modal fade" id="MoreLabOrderModal{{ $order->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="MoreLabOrderModal{{ $order->id }}"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog" role="document"
+                                                style="max-width: 40%; max-height:70%; overflow-y:hidden;">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="MoreLabOrderModal{{ $order->id }}">
+                                                            Lab Order Details</h5>
+                                                        <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-row" style="margin-bottom: 2%">
+                                                            <div class="form-group col-md-4">
+                                                                <label>Patient Name</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $order->patient ? $order->patient->full_name : '' }}" readonly>
+                                                            </div>
+        
+                                                            <div class="form-group col-md-4">
+                                                                <label>Doctor Name</label>
+                                                                <input disabled type="text" class="form-control"
+                                                                    value="{{ $order->doctor ? $order->doctor->name : '' }}"> 
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label>Test Name</label>
+                                                                <input disabled type="text" class="form-control"
+                                                                value="{{ $order->test ? $order->test->name : '' }}"> 
+                                                            </div>
+                                                            <div class="form-group col-md-2">
+                                                                <label>Test Price</label>
+                                                                <input type="text" disabled 
+                                                                   class="form-control"
+                                                                    value="{{ $order->labTest ? $order->labTest->price : '' }}">
+                                                            </div>
+                                                        </div>
+        
+        
+        
+        
+                                                        <div class="form-row" style="margin-bottom: 2%">
+                                                            <div class="form-group col-md-2">
+                                                                <label>Discount 1% =</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $order->labTest ? $order->labTest->discount_points : '' }}" readonly>
+                                                            </div>
+        
+                                                            <div class="form-group col-md-9">
+                                                                <label>Notes</label>
+                                                                <input disabled type="text" class="form-control"
+                                                                    value="{{ $order->labTrack ? $order->labTrack->notes :'' }}"> 
+                                                            </div>
+                                                           
+                                                        </div>
+        
+                                                        <div class="form-row" style="margin-bottom: 2%">
+                                                            <div class="form-group col-md-2">
+                                                                <label>Order_Id</label>
+                                                                <input type="text" class="form-control"
+                                                                    value="{{ $order->id ? $order->id : '' }}" readonly>
+                                                            </div>
+        
+                                                            <div class="form-group col-md-3">
+                                                                <label>Expected Delivery Date</label>
+                                                                <input disabled type="datetime-local" class="form-control"
+                                                                    value="{{ $order->labTrack ? $order->labTrack->expected_delivery_date : '' }}"> 
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label>Status</label>
+                                                                <select class="form-control" disabled>
+                                                                    <option
+                                                                     value="pending" @selected($order->labTrack && $order->labTrack->status === 'pending')
+                                                                     >
+                                                                     pending
+                                                                    </option>
+                                                                    <option value="delivered"
+                                                                    value="delivered" @selected($order->labTrack && $order->labTrack->status === 'delivered')
+                                                                        >
+                                                                        delivered
+                                                                        
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group col-md-3">
+                                                                <label>Delivered At</label>
+                                                                <input type="datetime-local" disabled 
+                                                                   class="form-control"
+                                                                    value="{{ $order->labTrack ? $labOrder->labTrack->delivered_at : '' }}">
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        {{-- Modal More --}}
+                                        {{-- ============================================ --}}
+        
                                     </tr>
+                                    {{-- @include('dashboard.labOrdersTracking.labOrderEdit') --}}
                                 @endforeach
                             </tbody>
                             <tfoot>
@@ -260,10 +410,25 @@
                                     <th></th>
                                     <th></th>
                                     <th></th>
-
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+        
+        
                                 </tr>
-
+        
                             </tfoot>
+        
+                        </table>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+        
+            <!-- Modal for this specific lab order -->
+        
+        
 
                         </table>
                     </div>

@@ -22,7 +22,7 @@
                     <thead style="background-color: rgba(255, 255, 0, 0.488);">
                         <tr>
                             <th>Test Name</th>
-                            <th>Tumor</th>
+                            <th>Diagnose</th>
                             <th>Details</th>
                             {{-- <th>Available Branches</th> --}}
                             <th>Status</th>
@@ -46,7 +46,7 @@
                         @forelse ($tests as $test)
                             <tr>
                                 <td>{{ $test->name }}</td>
-                                <td>{{ $test->tumor_name }}</td>
+                                <td>{{ $test->diag_name }}</td>
                                 <td>{{ $test->details }}</td>
 
                                 {{-- <td>
@@ -67,12 +67,19 @@
                                 <!-- Display courier name or N/A if no courier assigned--}}
 
                                 <td>
+                                    {{-- @if ($test->questions && count(json_decode($test->questions, true)) > 0) --}}
 
-                                    <!-- Button to trigger modal for questions -->
-                                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
-                                        data-target="#questionsModal{{ $test->id }}">
-                                        View Questions
-                                    </button>
+                                    @if ($test->questions && count(json_decode($test->questions,true)) > 0)
+                                       <!-- Button to trigger modal for questions -->
+                                       <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                                       data-target="#questionsModal{{ $test->id }}">
+                                       View Questions
+                                   </button>     
+                                   @else
+    <!-- Display a message when there are no questions -->
+    <p>No questions</p>
+                                    @endif
+                                
 
                                     <!-- Modal to display questions -->
                                     <div class="modal fade" id="questionsModal{{ $test->id }}" tabindex="-1"
@@ -225,13 +232,13 @@
 
                         <div class="form-row" style="align-items: baseline;margin-bottom:10px">
                             <div class="col-3">
-                                <label for="">Tumor</label>
+                                <label for="">Diagnose</label>
                             </div>
                             <div class="col-9">
-                                <select name="tumor_id" class="form-control">
+                                <select name="diagnose_id" class="form-control">
 
-                                    @foreach ($tumors as $tumor)
-                                        <option value="{{ $tumor->id }}">{{ $tumor->name }}</option>
+                                    @foreach ($diagnoses as $diagnose)
+                                        <option value="{{ $diagnose->id }}">{{ $diagnose->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -284,11 +291,11 @@
                         <div id="questions-container">
                             <div class="question-item">
                                 <label>Test Questions:</label>
-                                <input type="text" name="questions[0][text]" required class="form-control"
+                                <input type="text" name="questions[0][text]" class="form-control"
                                     placeholder="Write Question...!" style="margin-bottom: 5px;">
                                 <div class="choices-container">
                                     <div class="choice-item">
-                                        <input type="text" name="questions[0][options][]" required
+                                        <input type="text" name="questions[0][options][]"
                                             class="form-control" placeholder="Write Choice...!"
                                             style="margin-bottom: 5px;">
                                         <button type="button" class="remove-choice btn-sm btn-danger"
@@ -329,10 +336,10 @@
                 $('#questions-container').append(`
          <div class="question-item">
                             <label>Question:</label>
-                            <input type="text" name="questions[${questionIndex}][text]" required class="form-control" placeholder="Write Question...!" style="margin-bottom: 5px;">
+                            <input type="text" name="questions[${questionIndex}][text]" class="form-control" placeholder="Write Question...!" style="margin-bottom: 5px;">
                             <div class="choices-container">
                                 <div class="choice-item">
-                                    <input type="text" name="questions[${questionIndex}][options][]" required class="form-control" placeholder="Write Choice...!" style="margin-bottom: 5px;">
+                                    <input type="text" name="questions[${questionIndex}][options][]" class="form-control" placeholder="Write Choice...!" style="margin-bottom: 5px;">
                                     <button type="button" class="remove-choice btn-sm btn-danger" style="margin-bottom: 5px;">Remove Choice</button>
                                 </div>
                             </div>
@@ -349,7 +356,7 @@
 
                 $choicesContainer.append(`
      <div class="choice-item">
-                                    <input type="text" name="questions[${index}][options][]" required class="form-control" placeholder="Write Choice...!" style="margin-bottom: 5px;">
+                                    <input type="text" name="questions[${index}][options][]" class="form-control" placeholder="Write Choice...!" style="margin-bottom: 5px;">
                                     <button type="button" class="remove-choice btn-sm btn-danger" style="margin-bottom: 5px;">Remove Choice</button>
                                 </div>
     `);

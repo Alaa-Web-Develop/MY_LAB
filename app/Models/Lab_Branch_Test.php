@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Courier;
+use App\Models\Diagnose;
 use App\Models\SponserTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,7 @@ class Lab_Branch_Test extends Model
     // Specify the primary key fields
     protected $primaryKey = ['test_id', 'lab_id'];
 
-    protected $fillable=['lab_id', 'test_id', 'price', 'points', 'notes','discount_points','courier_id','has_courier'];
+    protected $fillable=['lab_id', 'test_id', 'price', 'points', 'notes','discount_points','courier_id','has_courier','test_tot'];
     protected $keyType = 'int';
 
 public function sponsor(){
@@ -33,6 +34,11 @@ public function sponsor(){
      {
          return $this->belongsTo(Courier::class, 'courier_id')->withDefault();
      }
+     public function test() {
+        return $this->belongsTo(Test::class, 'test_id');
+    }
+
+    
 
     //  In Eloquent relationships, specifying the foreign key and local key parameters helps Laravel understand how to relate two models. Let’s break down what these parameters mean and whether they are required:
 //         LabOrder::class: The related model that this model has a relationship with.

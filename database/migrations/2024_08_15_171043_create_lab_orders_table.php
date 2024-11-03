@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('test_id')->constrained('tests')->cascadeOnDelete();
             $table->foreignId('lab_branche_id')->constrained('lab_branches')->cascadeOnDelete();
                         // Add has_courier boolean column
-                        $table->boolean('has_courier')->default(false);
+            $table->boolean('has_courier')->default(false);
             $table->foreignId('courier_id')->nullable()->constrained('couriers')->nullOnDelete();
 
             $table->timestamps();

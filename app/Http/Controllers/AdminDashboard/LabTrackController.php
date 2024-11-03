@@ -15,19 +15,23 @@ class LabTrackController extends Controller
 {
     public function index()
     {
-        
-        //display lab_order
-        ///$labBranchId = auth('lab_branch')->id();
+        // Fetch lab orders with related data labTrack
+    $labOrders = LabOrder::with([
+        'patient',
+        'testQuestions',
+        'labTest',
+        'doctor',
+        'test', // Assuming test has a 'name' attribute
+        'labBranch', // Assuming labBranch has 'name', 'address', and 'phone' attributes
+        'courierCollectedTest' => function ($query) {
+            $query->with('courier'); // Eager load courier data
+        },
+        'labTrack' // Assuming labTrack has 'result_released_at', 'result', etc.
+    ])
+    ->orderBy('created_at', 'desc') // Show the most recent first
+    ->get();
 
-        // Fetch lab orders for the authenticated lab branch
-        // $labOrders = LabOrder::where('branch_id', $labBranchId) with(['labTrack', 'labTest', 'patient', 'test'])
-        $labOrders = LabOrder::with(['patient', 'test','labTrack','labTest','doctor'])
-        ->orderBy('created_at', 'desc') //showing the most recent first
-        ->get();
-        //dd( $labOrders);
-            
-
-        return view('dashboard.labOrdersTracking.index', compact('labOrders'));
+    return view('dashboard.labOrdersTracking.index', compact('labOrders'));
     }
 
     public function edit($id)
@@ -42,9 +46,12 @@ class LabTrackController extends Controller
     {
             // Validate the incoming request data
     $request->validate([
-        'expected_delivery_date' => 'required|date',
-        'status' => 'required|in:pending,delivered',
-        'delivered_at' => 'nullable|date',
+        'courier_collected_test_id'=>'nullable|int|exists:couriers,id',
+        'expected_result_released_date' => 'nullable|date',
+        'status' => 'required|in:ordered,collected_by_courier,lab_received_at',
+        'lab_received_at' => 'nullable|date',
+        'result_released_at' => 'nullable|date',
+
         'notes' => 'nullable|string',
         'results.*' => 'nullable|file|mimes:pdf,jpeg,png,doc,docx|max:20480', // Validate each file
     ]);
@@ -55,20 +62,25 @@ class LabTrackController extends Controller
     if ($labOrder->labTrack) {
         // Update existing labTrack
         $labOrder->labTrack->update([
-           
-            'expected_delivery_date' => $request->expected_delivery_date,
+           'courier_collected_test_id'=> $request->courier_collected_test_id,
+            'expected_result_released_date' => $request->expected_delivery_date,
             'status' => $request->status,
-            'delivered_at' => $request->delivered_at,
+            'lab_received_at' => $request->delivered_at,
+            'result_released_at' => $request->result_released_at,
+
             'notes' => $request->notes,
             'result' => $request->file('results') ? $this->storeResults($request->file('results')) : $labOrder->labTrack->result,
         ]);
     } else {
         // Create a new labTrack if it does not exist
         $labOrder->labTrack()->create([
+            'courier_collected_test_id'=> $request->courier_collected_test_id,
             'lab_order_id'=>$id,
-            'expected_delivery_date' => $request->expected_delivery_date,
+            'expected_result_released_date' => $request->expected_result_released_date,
             'status' => $request->status,
-            'delivered_at' => $request->delivered_at,
+            'lab_received_at' => $request->lab_received_at,
+            'result_released_at' => $request->result_released_at,
+
             'notes' => $request->notes,
             'created_at' => Carbon::now(),
             'result' => $request->file('results') ? $this->storeResults($request->file('results')) : null,

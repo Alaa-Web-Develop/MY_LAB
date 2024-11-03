@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
+use App\Models\CourierCollectedTest;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Patient extends Model
 {
-  use HasFactory;
+  use HasFactory,Notifiable;
   protected $fillable = [
-    'firstname', 'lastname', 'doctor_id', 'pathology_report_image', 'phone', 'email', 'age', 'comment', 'tumor_id'
+    'firstname', 'lastname', 'doctor_id', 'pathology_report_image', 'phone', 'email', 'age', 'comment', 'diagnose_id','tracking_number'
   ];
 
   //local scope
@@ -42,9 +44,11 @@ class Patient extends Model
 
   }
   //Rel
+
+
   public function doctor()
   {
-    return $this->belongsTo(Doctor::class, 'user_id', 'id')->withDefault();
+    return $this->belongsTo(Doctor::class, 'doctor_id')->withDefault();
   }
 
   public function labOrders()
@@ -57,9 +61,9 @@ class Patient extends Model
     return $this->hasMany(PatientCase::class);
   }
 
-  public function tumor()
+  public function diagnose()
   {
-      return $this->belongsTo(Tumor::class);
+      return $this->belongsTo(Diagnose::class);
   }
 
   // Accessors
@@ -79,6 +83,6 @@ class Patient extends Model
   }
 
   // Append full name, doctor name, and tumor name to API responses
-  protected $appends = ['full_name', 'doctor_name', 'tumor_name'];
+  protected $appends = ['full_name', 'doctor_name'];
 
 }

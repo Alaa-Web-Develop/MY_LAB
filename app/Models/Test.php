@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Diagnose;
 use App\Models\SponserTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ class Test extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'tumor_id', 'details', 'status','questions'
+        'name', 'diagnose_id', 'details', 'status','questions'
     ];
 
     // public function courier()
@@ -29,9 +30,9 @@ class Test extends Model
     }
 
     //Rel
-    public function tumor()
+    public function diagnose()
     {
-        return $this->belongsTo(Tumor::class)->withDefault();
+        return $this->belongsTo(Diagnose::class)->withDefault();
     }
 
  
@@ -50,5 +51,6 @@ class Test extends Model
     protected $casts = [
         'questions' => 'array', // Automatically cast JSON to array
     ];
+  
 
 }

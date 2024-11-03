@@ -62,9 +62,27 @@
                                 <td>{{ $doctor->name }}</td>
                                 <td>{{ $doctor->inst_name }}</td>
                                 <td>{{ $doctor->spec_name }}</td>
-                                <td><a href="{{ route('dashboard.download-doc-docs', $doctor->id) }}"><i
+                                <td>
+                                    @if ($doctor->doctorDocs->isNotEmpty())
+                                        <a href="{{ route('dashboard.download-doc-docs', $doctor->id) }}"><i
                                             class="bi bi-cloud-arrow-down-fill"></i> download</a>
+                                    
+                                        
+                                    @else
+                                        No Prof.Docs
+                                    @endif
+                                   
                                 </td>
+                                {{-- <td>
+                                    @if($doctor->documents->isNotEmpty()) <!-- Assuming 'documents' is a relationship -->
+                                        <a href="{{ route('dashboard.download-doc-docs', $doctor->id) }}">
+                                            <i class="bi bi-cloud-arrow-down-fill"></i> download
+                                        </a>
+                                    @else
+                                        <!-- You can leave this empty, or add a message like "No documents" if you prefer -->
+                                    @endif
+                                </td> --}}
+
                                 <td>
                                     <select class="form-control approval-status" data-doctor-id="{{ $doctor->id }}">
                                         <option value="pending"

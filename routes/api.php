@@ -13,11 +13,13 @@ use App\Http\Controllers\Apis\LabOrdersController;
 use App\Http\Controllers\Apis\LabOrdersTrackingController;
 use App\Http\Controllers\Apis\LabsBranchesController;
 use App\Http\Controllers\Apis\LabsController;
+use App\Http\Controllers\Apis\MobileCachingController;
 use App\Http\Controllers\Apis\PatientCasesController;
 use App\Http\Controllers\Apis\PatientsController;
 use App\Http\Controllers\Apis\PointsTransferController;
 use App\Http\Controllers\Apis\PointTransactionsController;
 use App\Http\Controllers\Apis\SpecalityController;
+use App\Http\Controllers\Apis\SponsorController;
 use App\Http\Controllers\Apis\TestsController;
 use App\Http\Controllers\Apis\TuomrsController;
 use Illuminate\Http\Request;
@@ -158,6 +160,9 @@ Route::apiResource('/labOrdersTracking',LabOrdersTrackingController::class)->mid
 //   PUT|PATCH       api/labOrdersTracking/{labOrdersTracking} ......... labOrdersTracking.update › Apis\LabOrdersTrackingController@update  
 //   DELETE          api/labOrdersTracking/{labOrdersTracking} ....... labOrdersTracking.destroy › Apis\LabOrdersTrackingController@destroy  
 
+Route::get('/getlabordersTracking',[LabOrdersTrackingController::class,'show'])->middleware('auth:sanctum');
+
+
 Route::apiResource('/patientCases',PatientCasesController::class)->middleware('auth:sanctum');
 //   GET|HEAD        api/patientCases ............ patientCases.index › Apis\PatientCasesController@index  
 //   POST            api/patientCases ............ patientCases.store › Apis\PatientCasesController@store  
@@ -215,4 +220,22 @@ Route::post('/lab-test-has-courier',[LabOrdersController::class,'checkCourierSta
 Route::get('/lab-test-allCouriersWithAreas',[LabOrdersController::class,'getCouriersWithAreas'])->middleware('auth:sanctum');
 
 Route::get('/lab-test-CourierWithAreas/{id}',[LabOrdersController::class,'getCourierWithAreas'])->middleware('auth:sanctum');
+
+Route::get('/all-sponsors',[SponsorController::class,'index'])->middleware('auth:sanctum');
+Route::get('/specific-sponsor',[SponsorController::class,'show'])->middleware('auth:sanctum');
+
+Route::get('/specific-test-details-with-questions',[TestsController::class,'TestDetailsWithQuestions'])->middleware('auth:sanctum');
+
+Route::get('/TestByDiagnoseId',[TestsController::class,'getTestByDiagnoseId'])->middleware('auth:sanctum');
+
+//Mobile Cache
+Route::get('/Get-all-diagnoses',[MobileCachingController::class,'getAllDiagnoses']);
+Route::get('/Get-all-labs',[MobileCachingController::class,'getAllLabs']);
+Route::get('/Get-all-tests',[MobileCachingController::class,'getAllTests']);
+Route::get('/Get-all-lab_branches',[MobileCachingController::class,'getAllLab_branches']);
+Route::get('/Get-all-patients',[MobileCachingController::class,'getAllPatients'])->middleware('auth:sanctum');
+Route::get('/Get-all-lab_tests',[MobileCachingController::class,'getAllLabTests'])->middleware('auth:sanctum');
+Route::get('/Get-all-test_questions',[MobileCachingController::class,'getAllTestQuestions']);
+Route::get('/get-Tests-By-LabId',[MobileCachingController::class,'getTestsByLabId']);
+
 

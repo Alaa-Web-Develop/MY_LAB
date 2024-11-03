@@ -21,6 +21,10 @@ class LabBranch extends Model
         return $this->belongsTo(City::class);
     }
 
+       public function govern(){
+        return $this->belongsTo(Governorate::class,'governorate_id');
+       }
+
     public function tests()
     {
         return $this->belongsToMany(Test::class,'lab_branche_test')->withPivot(['price', 'points', 'notes']);

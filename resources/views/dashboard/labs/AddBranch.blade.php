@@ -84,10 +84,10 @@
                     {{-- ==== --}}
                     <div class="form-row" style="align-items: center;margin-bottom: 10px;">
                         <div class="col-2" style="text-align:end;">
-                            <label for="">Location</label>
+                            <label for="">Address</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" name="location" placeholder="enter location details..">
+                            <input type="text" class="form-control" name="location" placeholder="enter address details..">
                         </div>
                     </div>
                     {{-- ==== --}}

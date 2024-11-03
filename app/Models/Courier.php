@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\User;
 use App\Models\LabOrder;
 use App\Models\CourierArea;
+use App\Models\CourierCollectedTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -12,6 +13,11 @@ class Courier extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'phone', 'email','user_id'];
+
+    public function courierCollectedTests()
+{
+    return $this->hasMany(CourierCollectedTest::class);
+}
 
     public function tests()
     {

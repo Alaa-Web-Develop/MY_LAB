@@ -42,13 +42,13 @@
 
                     <div class="form-row" style="align-items: baseline;margin-bottom:10px">
                         <div class="col-3">
-                            <label for="">Tumor</label>
+                            <label for="">Diagnose</label>
                         </div>
                         <div class="col-9">
-                            <select name="tumor_id" class="form-control">
+                            <select name="diagnose_id" class="form-control">
                                 <option>choose...</option>
-                                @foreach ($tumors as $tumor)
-                                    <option value="{{ $tumor->id }}" @selected($test->tumor_id == $tumor->id)>{{ $tumor->name }}
+                                @foreach ($diagnoses as $diagnose)
+                                    <option value="{{ $diagnose->id }}" @selected($test->diagnose_id == $diagnose->id)>{{ $diagnose->name }}
                                     </option>
                                 @endforeach
                             </select>

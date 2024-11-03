@@ -7,6 +7,8 @@ use App\Models\LabOrder;
 use Illuminate\Http\Request;
 use App\Models\Lab_Branch_Test;
 use App\Http\Controllers\Controller;
+use App\Models\CourierCollectedTest;
+use App\Models\LabOrderTestQuestion;
 use Illuminate\Support\Facades\Auth;
 
 class LabOrdersController extends Controller
@@ -69,16 +71,51 @@ class LabOrdersController extends Controller
         $doctor_id = $user->doctor->id;
 
         $request->validate([
-
             'patient_id' => 'required|integer|exists:patients,id',
             'test_id' => 'required|integer|exists:tests,id',
             'lab_branche_id' => 'required|integer|exists:lab_branches,id',
             'lab_id' => 'required|integer|exists:labs,id',
+            'questions'=>'nullable|array',
+            'questions.*.question'=>'required|string',
+            'questions.*.answer'=>'required|string',
+            'has_courier' => 'nullable|boolean',
+            'courier_id' => 'nullable|int|exists:couriers,id',
         ]);
-        $data = $request->except(['doctor_id']);
+        $data = $request->except(['doctor_id','questions','has_courier','courier_id']);
         $data['doctor_id'] = $doctor_id;
 
         $labOrder = LabOrder::create($data);
+
+        if($request->has('questions')){
+               // Store the questions and answers related to the lab order
+              
+                foreach ($request->questions as $question) {
+                    LabOrderTestQuestion::create([
+                        'lab_order_id' => $labOrder->id,
+                        'question' => $question['question'],   // Save the question text
+                        'answer' => $question['answer'],       // Save the answer text
+                    ]);
+                }
+            
+        }
+
+        if ($request->has('has_courier') && $request->has('courier_id')) {
+            // Find the courier
+            $courier = Courier::find($request->courier_id);
+
+            if ($courier) {
+                // Create courier_collected_tests entry
+                CourierCollectedTest::create([
+                    'courier_id' => $courier->id,
+                    'lab_order_id' => $labOrder->id,
+                    'status' => 'new',
+                    'collected_at' => null,  // To be updated when courier collects
+                ]);
+            }
+        }
+
+        // Reload labOrder to include questions and courier information
+    $labOrder->load('testQuestions', 'courierCollectedTest.courier');
 
         return response()->json([
             'message' => 'new Lab Order has been added..',

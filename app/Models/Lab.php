@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\City;
+use App\Models\Governorate;
 use App\Models\SponserTest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -29,7 +31,13 @@ class Lab extends Model
     {
         return $this->belongsToMany(Test::class,'lab_tests')->withPivot(['price', 'points', 'notes','discount_points']);
     }
-   
+   public function city(){
+    return $this->belongsTo(City::class);
+   }
+
+   public function govern(){
+    return $this->belongsTo(Governorate::class,'governorate_id');
+   }
 }
 
 

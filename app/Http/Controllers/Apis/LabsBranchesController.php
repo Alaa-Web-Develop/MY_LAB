@@ -85,7 +85,7 @@ class LabsBranchesController extends Controller
 
             'tests.id as test_id',
             'tests.name as test_name',
-            'tests.type as test_type',
+           // 'tests.type as test_type',
 
 
             'lab_tests.price as test_price',

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tests', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('tumor_id')->nullable()->constrained('tumors')->nullOnDelete();
+            $table->foreignId('diagnose_id')->nullable()->constrained('diagnoses')->nullOnDelete();
 
             $table->text('details')->nullable();
             $table->enum('status',['valid','invalid'])->default('valid');

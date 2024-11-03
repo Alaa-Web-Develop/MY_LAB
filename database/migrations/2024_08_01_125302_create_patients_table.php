@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('pathology_report_image')->nullable();
 
             
-            $table->foreignId('tumor_id')->nullable()->constrained('tumors')->nullOnDelete();
+            $table->foreignId('diagnose_id')->nullable()->constrained('diagnoses')->nullOnDelete();
 
             
             $table->string('phone')->unique();

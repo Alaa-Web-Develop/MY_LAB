@@ -17,7 +17,7 @@ class TestSeeder extends Seeder
             [
                 [
                     'name' => 'test_1',
-                    'tumor_id' => 5,
+                    'diagnose_id' => 5,
                     'details' => 'test_1 Details',
                     
                    
@@ -25,7 +25,7 @@ class TestSeeder extends Seeder
                 ],
                 [
                     'name' => 'test_2',
-                    'tumor_id' => 2,
+                    'diagnose_id' => 2,
                     'details' => 'test_2 Details',
                   
                   
@@ -34,7 +34,7 @@ class TestSeeder extends Seeder
                 ],
                 [
                     'name' => 'test_3',
-                    'tumor_id' => 3,
+                    'diagnose_id' => 3,
                     'details' => 'test_3 Details',
                     
                    
@@ -43,7 +43,7 @@ class TestSeeder extends Seeder
                 ],
                 [
                     'name' => 'test_4',
-                    'tumor_id' => 4,
+                    'diagnose_id' => 4,
                     'details' => 'test_4 Details',
                    
                    
@@ -51,7 +51,7 @@ class TestSeeder extends Seeder
 
                 ],
             ]
-           , ['name', 'tumor_id', 'details',]);
+           , ['name', 'diagnose_id', 'details',]);
    
     }
 }

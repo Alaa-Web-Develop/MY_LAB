@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminDashboard\CitiesContrller;
+use App\Http\Controllers\AdminDashboard\CourierCollectedTestController;
 use App\Http\Controllers\AdminDashboard\CourierController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,8 @@ use App\Http\Controllers\AdminDashboard\SpecialitiesController;
 use App\Http\Controllers\AdminDashboard\SponsoredTestRequestsController;
 use App\Http\Controllers\AdminDashboard\SponsoredTestsController;
 use App\Http\Controllers\AdminDashboard\SponsorsController;
+use App\Http\Controllers\CourierTracking\CourierTrackingController;
+use App\Models\CourierCollectedTest;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -85,6 +89,28 @@ Route::resource('/couriers', CourierController::class);
 Route::resource('/sponsors',SponsorsController::class);
 Route::resource('/sponsored-tests',SponsoredTestsController::class);
 Route::resource('/doctors-sponsored-requests',SponsoredTestRequestsController::class);
+Route::resource('/couriercollectedtests',CourierCollectedTestController::class);
+Route::resource('/courierTracking',CourierTrackingController::class);
+Route::get('/display-govs-cities',[CitiesContrller::class,'index'])->name('index-govs-cities');
+Route::post('/governorates/store', [CitiesContrller::class, 'storeGovernorate'])->name('governorates.store');
+Route::post('/cities/store', [CitiesContrller::class, 'storeCity'])->name('cities.store');
+
+
+// GET|HEAD        dashboard/courierTracking dashboard.courierTracking.index › CourierTracking\CourierTracki…  
+// POST            dashboard/courierTracking dashboard.courierTracking.store › CourierTracking\CourierTracki…  
+// GET|HEAD        dashboard/courierTracking/create dashboard.courierTracking.create › CourierTracking\Couri…  
+// GET|HEAD        dashboard/courierTracking/{courierTracking} dashboard.courierTracking.show › CourierTrack…  
+// PUT|PATCH       dashboard/courierTracking/{courierTracking} dashboard.courierTracking.update › CourierTra…  
+// DELETE          dashboard/courierTracking/{courierTracking} dashboard.courierTracking.destroy › CourierTr…  
+// GET|HEAD        dashboard/courierTracking/{courierTracking}/edit dashboard.courierTracking.edit › Courier…  
+
+// GET|HEAD        dashboard/couriercollectedtests ............ dashboard.couriercollectedtests.index › App\Models\CourierCollectedTest@index  
+//   POST            dashboard/couriercollectedtests ............ dashboard.couriercollectedtests.store › App\Models\CourierCollectedTest@store  
+//   GET|HEAD        dashboard/couriercollectedtests/create ... dashboard.couriercollectedtests.create › App\Models\CourierCollectedTest@create  
+//   GET|HEAD        dashboard/couriercollectedtests/{couriercollectedtest} dashboard.couriercollectedtests.show › App\Models\CourierCollected…  
+//   PUT|PATCH       dashboard/couriercollectedtests/{couriercollectedtest} dashboard.couriercollectedtests.update › App\Models\CourierCollect…
+//   DELETE          dashboard/couriercollectedtests/{couriercollectedtest} dashboard.couriercollectedtests.destroy › App\Models\CourierCollec…  
+//   GET|HEAD        dashboard/couriercollectedtests/{couriercollectedtest}/edit dashboard.couriercollectedtests.edit › App\Models\CourierColl… 
 
 // GET|HEAD        dashboard/doctors-sponsored-requests dashboard.doctors-sponsored-requests.index …
 // POST            dashboard/doctors-sponsored-requests dashboard.doctors-sponsored-requests.store …  

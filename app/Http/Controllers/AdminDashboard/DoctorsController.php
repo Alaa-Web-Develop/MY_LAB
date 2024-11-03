@@ -65,7 +65,6 @@ class DoctorsController extends Controller
 
     public function store(Request $request)
     {
-
         //dd($request->all());
         $request->validate([
             'name' => ['required', 'string', 'max:256'],
@@ -79,18 +78,6 @@ class DoctorsController extends Controller
             'phone' => ['required', 'string', 'regex:/^01[0-2,5,9]{1}[0-9]{8}$/','unique:doctors,phone'],
             'email' => ['required', 'email:rfc,dns','unique:doctors,email'],
             'user_id' => ['nullable', 'exists:users,id'],
-            // 'password' => [
-            //     'required',
-            //     'string',
-            //     //'confirmed', // Ensures password confirmation matches
-            //     Password::min(6) // Sets minimum length , Illuminate\Validation\Rules\Password
-            //         ->mixedCase() // Requires at least one uppercase and one lowercase letter
-            //         ->letters() // Requires at least one letter
-            //         ->numbers() // Requires at least one number
-            //     //->symbols() // Requires at least one special character
-            //     // ->uncompromised(), // Checks the password against the Have I Been Pwned database to avoid compromised passwords
-            // ],
-
         ]);
         //dd($request->all());
 
@@ -102,8 +89,6 @@ class DoctorsController extends Controller
             //code if commit
             $created_doctor = Doctor::create($data);
 
-            //dd($created_doctor->id);
-            //upload Docs:
             $imgsData = [];
             if ($files = $request->file('docs')) {
                 foreach ($files as $key => $file) {
@@ -126,15 +111,11 @@ class DoctorsController extends Controller
                 }
             }
             DoctorDoc::insert($imgsData);
-            //dd($test); return true or false with insert
-
             DB::commit();
         } catch (\Throwable $th) {
             DB::rollBack();
             throw $th;
         }
-
-
         return redirect()->route('dashboard.doctors.index')->with('success', 'Doctor profile has been added!');
     }
 
@@ -196,7 +177,7 @@ class DoctorsController extends Controller
         ]);
         //dd($request->all());
 
-        // ================ beginTransaction
+        //================ beginTransaction
         DB::beginTransaction();
         try {
             //code...

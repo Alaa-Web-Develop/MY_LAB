@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Lab;
+use App\Models\LabBranch;
 use App\Models\Governorate;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class City extends Model
@@ -16,5 +19,12 @@ class City extends Model
     public function governorate()
     {
         return $this->belongsTo(Governorate::class);
+    }
+    public function lab(){
+        return $this->hasMany(Lab::class);
+    }
+
+    public function branch(){
+        return $this->hasMany(LabBranch::class);
     }
 }

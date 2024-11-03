@@ -49,7 +49,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-    <div class="wrapper" style="padding: 20px;">
+    <div class="wrapper">
 
       @if ($errors->any())
       <script>

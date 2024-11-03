@@ -103,7 +103,7 @@
 
                     </div>
 
-                    <div class="form-row" style="align-items: baseline;margin-bottom:10px">
+                    {{-- <div class="form-row" style="align-items: baseline;margin-bottom:10px">
                         <div class="col-3">
                             <label>Courier</label>
                         </div>
@@ -119,7 +119,7 @@
                             </select>
 
                         </div>
-                    </div>
+                    </div> --}}
 
 
 
@@ -156,6 +156,15 @@
                     </div>
                     {{-- sposnor info ====================== --}}
                     <hr>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>How many days does the analysis take?</label>
+                        <div style="text-align: center;">
+                            <input type="number" name="test_tot" class="form-control" min="0">
+                        </div>
+                    </div>
+                </div>
 
                     <div class="form-row" style="margin-bottom: 2%">
                         <div class="form-group offset-2 col-md-9">

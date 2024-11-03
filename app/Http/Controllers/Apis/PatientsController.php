@@ -3,21 +3,31 @@
 namespace App\Http\Controllers\Apis;
 
 
+use App\Models\Lab;
 use App\Models\Test;
 use App\Models\Action;
 use App\Models\Doctor;
+use App\Models\Courier;
 use App\Models\Patient;
+use Twilio\Rest\Client;
 use App\Models\LabOrder;
+use App\Models\LabBranch;
+use App\Services\SMSService;
 use Illuminate\Http\Request;
 use App\Http\Helpers\ApiTrait;
 use Illuminate\Support\Carbon;
 use App\Models\Lab_Branch_Test;
 use App\Models\PointTransaction;
 use App\Http\Controllers\Controller;
+use App\Models\CourierCollectedTest;
+use App\Models\LabOrderTestQuestion;
 use App\Models\SponsoredTestRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
+use App\Notifications\SendSmsNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Helpers\convertToInternationalFormat;
 
 class PatientsController extends Controller
 {
@@ -51,8 +61,8 @@ class PatientsController extends Controller
                             }]);
                     }]);
             }])
-            ->select('id', 'firstname', 'lastname', 'doctor_id', 'pathology_report_image', 'tumor_id', 'phone', 'email', 'age', 'created_at', 'updated_at')
-            ->with('tumor:id,name') // Assuming the patient has a tumor relationship
+            ->select('id', 'firstname', 'lastname', 'doctor_id', 'pathology_report_image', 'diagnose_id', 'phone', 'email', 'age', 'created_at', 'updated_at')
+            ->with('diagnose:id,name')
             ->get();
 
         // Format the response
@@ -63,8 +73,8 @@ class PatientsController extends Controller
                 'lastname' => $patient->lastname,
                 'doctor_id' => $patient->doctor_id,
                 'pathology_report_image' => $patient->pathology_report_image,
-                'tumor_id' => $patient->tumor_id,
-                'tumor_name' => optional($patient->tumor)->name, // Tumor name if exists
+                'diagnose_id' => $patient->diagnose_id,
+                'diagnose_name' => optional($patient->diagnose)->name, // Tumor name if exists
                 'phone' => $patient->phone,
                 'email' => $patient->email,
                 'age' => $patient->age,
@@ -102,7 +112,7 @@ class PatientsController extends Controller
     /**
      * add new patient with new case with his labOrders
      */
-    public function store(Request $request)
+    public function store(Request $request, SMSService $smsService)
     {
 
         //======Auth doctor
@@ -116,16 +126,16 @@ class PatientsController extends Controller
             'lastname' => 'required|string|max:255',
             // 'doctor_id' => 'required|integer|exists:doctors,id',
             'pathology_report_image' => 'nullable|file',
-            'phone' => ['required', 'string', 'regex:/^01[0-2,5,9]{1}[0-9]{8}$/', "unique:patients,phone"],
+            'phone' => ['required', 'string', 'regex:/^(\+201[0-9]{9})|(01[0-2,5,9]{1}[0-9]{8})$/', "unique:patients,phone"],
             'email' => ['required', 'email:rfc,dns', "unique:patients,email"],
             'age' => 'required|numeric',
             'comment' => 'nullable|string',
-            'tumor_id' => 'nullable|integer|exists:tumors,id',
+            'diagnose_id' => 'nullable|integer|exists:diagnoses,id',
 
             //case with lab_order
             //'patient_id' => 'required|integer|exists:patients,id',
             // 'doctor_id' => 'required|integer|exists:doctors,id',
-            'diagnose_id' => 'nullable|integer|exists:diagnoses,id',
+            //'diagnose_id' => 'nullable|integer|exists:diagnoses,id',
 
             //lab_order lab_orders[0][lab_id] |lab_orders[1][test_id]|lab_orders[1][lab_branche_id ]
             'lab_orders' => 'nullable|array',
@@ -134,8 +144,17 @@ class PatientsController extends Controller
             'lab_orders.*.lab_branche_id' => 'nullable|integer|exists:lab_branches,id',
             'lab_orders.*.discount_points' => 'nullable|integer|min:0',
 
+            //has_courier
+            'lab_orders.*.has_courier' => 'nullable|boolean',
+            // 'lab_orders.*.courier_id' => 'nullable|int|exists:couriers,id',
             // Sponsored checkbox
             'lab_orders.*.sponsored' => 'nullable|boolean',
+            'lab_orders.*.sponser_id' => 'nullable|int|exists:sponsers,id',
+
+            'lab_orders.*.questions' => 'nullable|array',
+            'lab_orders.*.questions.*.question' => 'required|string',  // The actual question text
+            'lab_orders.*.questions.*.answer' => 'required|string',
+
         ]);
 
         //$redeemPoints = $request->post('discount_points');
@@ -157,16 +176,21 @@ class PatientsController extends Controller
             $validatedData['doctor_id'] = $doctor_id;
             //dd( $data['doctor_id']);
             //dd($data);
+
+            $phone = convertToInternationalFormat::ConvertToInternationalFormat($request->phone);
+
+            //Generate a tracking number and store it in patients table
+            $trackingNum = strtoupper(uniqid('TRK-')); //Make a string uppercase,uniqid Generate a unique ID
             $created_patint = Patient::create([
                 'firstname' =>  $validatedData['firstname'],
                 'lastname' => $validatedData['lastname'],
                 'doctor_id' => $doctor_id,
                 'pathology_report_image' => $validatedData['pathology_report_image'],
-                'phone' => $validatedData['phone'],
+                'phone' =>  $phone,
                 'email' => $validatedData['email'],
                 'age' => $validatedData['age'],
-
-                'tumor_id' => $validatedData['tumor_id'],
+                'diagnose_id' => $validatedData['diagnose_id'],
+                'tracking_number' => $trackingNum,
             ]);
 
 
@@ -182,7 +206,7 @@ class PatientsController extends Controller
             $case = $created_patint->cases()->create([
                 'patient_id' => $created_patint->id,
                 'doctor_id' =>  $doctor_id,
-                'diagnose_id' => $validatedData['diagnose_id'],
+                // 'diagnose_id' => $validatedData['diagnose_id'],
                 'comment' => $validatedData['comment'],
             ]);
 
@@ -198,6 +222,7 @@ class PatientsController extends Controller
             // Add the lab orders for the case
             $totalDiscountPoints = 0;
             $labOrders = [];
+            $labOrderDetails = []; //for sms content
             if ($request->has('lab_orders') && !empty($request->lab_orders)) {
 
                 foreach ($validatedData['lab_orders'] as $labOrder) {
@@ -209,9 +234,24 @@ class PatientsController extends Controller
                         'test_id' => $labOrder['test_id'],
                         'lab_branche_id' => $labOrder['lab_branche_id'],
                         'discount_points' => $labOrder['discount_points'] ?? 0, // Use null coalescing operator
+                        'has_courier' => $labOrder['has_courier'] ?? false,
+                        'courier_id' => $labOrder['courier_id'] ?? null,
                     ]);
 
                     $labOrders[] = $newLabOrder;
+
+                    // Add courier logic
+                    if (isset($labOrder['has_courier']) && $labOrder['has_courier']) {
+
+                        // Create courier_collected_tests entry
+                        CourierCollectedTest::create([
+                            // 'courier_id' => $courier->id,
+                            'lab_order_id' => $newLabOrder->id,
+                            'status' => 'new',
+                            'collected_at' => null,  // To be updated when courier collects
+                        ]);
+                    }
+
 
                     Action::create([
                         'action' => "Doctor:  $doctor->name - add anew lab_order",
@@ -223,19 +263,19 @@ class PatientsController extends Controller
                     //update doctor_total points
                     $lab_test = Lab_Branch_Test::where('test_id', '=', $labOrder['test_id'])->where('lab_id', '=', $labOrder['lab_id'])->first();
 
-                    if ($lab_test){
+                    if ($lab_test) {
                         $points = $lab_test->points;
                         $doctor = Doctor::where('id', $doctor_id)->first();
                         $doctor->total_points += $points;
                         $doctor->save();
-    
+
                         Action::create([
                             'action' => "Doctor:  $doctor->name - Earned :$points points",
                             'type' => 'points',
                             'action_date' => now()
                         ]);
                     }
-                  
+
 
                     //update points_transaction
                     // Add entry to PointsTransaction table
@@ -273,23 +313,90 @@ class PatientsController extends Controller
                             'doctor_id' => $doctor_id,
                             'patient_id' => $created_patint->id,
                             'lab_order_id' => $newLabOrder->id,
+                            'sponser_id' => $labOrder['sponser_id'],
                             'status' => 'pending', // Admin approval pending
                         ]);
                     }
+
+                    // Store the questions and answers related to the lab order
+                    if (isset($labOrder['questions']) && !empty($labOrder['questions'])) {
+                        foreach ($labOrder['questions'] as $question) {
+                            LabOrderTestQuestion::create([
+                                'lab_order_id' => $newLabOrder->id,
+                                'question' => $question['question'],   // Save the question text
+                                'answer' => $question['answer'],       // Save the answer text
+                            ]);
+                        }
+                    }
+
+
+                    //i am still in loop to collect $labOrderDetails for sms content
+                    $test = Test::find($labOrder['test_id']);
+                    $lab = Lab::find($labOrder['lab_id']);
+                    $branch = LabBranch::find($labOrder['lab_branche_id']);
+                    //collect in $labOrderDetails
+                    $labOrderDetails[] = [
+                        'test_name' => $test->name,
+                        'lab_name' => $lab->name,
+                        'branch_name' => $branch->name,
+                        'branch_phone' => $branch->phone,
+                        'branch_address' => $branch->address
+                    ];
                 } //foreach
             }
 
+            //prepare for send twilio sms
+            $trackingLink = url('/patient-order' . '?tracking=' . $trackingNum);
+            $patinetName = $created_patint->firstname . ' ' . $created_patint->lastname;
+            //sms content by loop orderDetails
+            $messageContent = "مرحبا أستاذ $patinetName,لقد تم طلب التحاليل الآتية :";
+            foreach ($labOrderDetails as $details) {
+                $messageContent .= "\n-تحليل:" . $details['test_name'] . "  : من معمل" . $details['lab_name'] . " : فرع " .
+                    $details['branch_name'] . "  ،هاتف " . $details['branch_phone'] . " ، العنوان: " . $details['branch_address'] . ".";
+            }
+            $messageContent .= "\n لمتابعة حالة التحاليل استخدم الرقم $trackingNum";
+            $messageContent .= "\n عبر الرابط: $trackingLink";
+
+            $smsService->sendSMS($created_patint->phone,$messageContent);
+           // Notification::send($created_patint, new SendSmsNotification($messageContent, $created_patint->phone));
+           //$this->sendSms($messageContent,$created_patint->phone);
 
             $token = $request->bearerToken();
             $doctor = Doctor::where('id', $doctor_id)->first();
             $DRPoints = $doctor->total_points;
+
+
+            //to return in response
+            $mappedOrders = collect($labOrders)->map(function ($order) {
+                // Fetch the questions related to the lab order
+                $questions = LabOrderTestQuestion::where('lab_order_id', $order->id)->get();
+
+                return [
+                    "patient_id" => $order['patient_id'],
+                    "patient_case_id" => $order['patient_case_id'],
+                    "doctor_id" => $order['doctor_id'],
+                    'lab_id' => $order['lab_id'],
+                    'test_id' => $order['test_id'],
+                    "lab_branche_id" => $order['lab_branche_id'],
+                    "discount_points" => $order['discount_points'],
+                    "has_courier" => $order['has_courier'],
+                    "courier_id" => $order['courier_id'],
+                    "updated_at" => $order['updated_at'],
+                    "created_at" => $order['created_at'],
+                    'id' => $order['id'],
+                    //add questions
+                    'questions' => $questions
+                ];
+            });
 
             // Return a response
             return response()->json([
                 'message' => 'Patient, case, and lab orders created successfully',
                 'patient' => $created_patint,
                 'case' => $case,
-                'lab_orders' => $labOrders,
+                'lab_orders' => $mappedOrders,
+
+
                 'token' => $token,
                 'doctor_available_points' => $DRPoints,
                 'total_discount_points' => $totalDiscountPoints,
@@ -427,5 +534,22 @@ class PatientsController extends Controller
                 'doctor_points' => (int)$doc_points,
             ], 500);
         }
+    }
+
+
+    public function sendSms($message,$phone_number)
+    {
+        $sid = getenv('TWILIO_ACCOUNT_SID');
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio = new Client($sid, $token);
+
+        $message = $twilio->messages->create(
+            $phone_number, // To
+            [
+                "body" =>$message,
+               
+                "from" => getenv('TWILIO_FROM'),
+            ]
+        );
     }
 }
